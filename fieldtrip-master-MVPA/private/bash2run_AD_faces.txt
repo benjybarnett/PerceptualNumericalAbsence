@@ -1,0 +1,20 @@
+#!/bin/sh
+
+
+#---------let's set some things -----------------------
+
+# shell to use on the cluster. This needs to be specified.
+# Try using the one at the top of your existing script.
+
+#$ -S /bin/sh
+#$ -j y
+#$ -N searchlight_faces
+
+sub_id=$(echo $1)
+
+# Where to find SPM
+spm_path="/home/bbarnett/spm12"
+decoding_path="/home/bbarnett/Decoding"
+
+matlab_command="addpath('$spm_path');addpath('$decoding_path');hpc_permute_vis_searchlight_AD('$sub_id')";
+/share/apps/matlab -nojvm -nodesktop -nosplash -nodisplay -singleCompThread -batch $matlab_command
